@@ -1,22 +1,28 @@
 {
   "name": "hot-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "hot command line for generate a scaffold",
   "main": "index.js",
+  "bin": {
+    "hot1": "./bin/hotcli"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Roeis/hot-cli.git"
   },
-  "author": "roeis",
+  "author": "roei",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Roeis/hot-cli/issues"
   },
   "homepage": "https://github.com/Roeis/hot-cli#readme",
   "dependencies": {
-    "commander": "^2.9.0"
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "prompt": "^1.0.0",
+    "request": "^2.72.0"
   }
 }
