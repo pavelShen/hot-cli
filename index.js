@@ -1,95 +1,58 @@
 'use strict';
 
-let fs = require('fs');
-let util = require('util');
-let request = require('request');
-let program = require('commander');
-let packageJson = require('./package.json');
-
-program.LOG_PATH = process.env.HOME + '/.cli-log';
+var program = require('commander');
+var packageJson = require('./package.json');
 
 program
     .version(packageJson.version)
-    .usage('<command> [options]')
-    .option('-d --debug', 'show debug info');
+    .option('-p, --peppers', 'Add peppers')
+    .option('-P, --pineapple', 'Add pineapple')
+    .option('-b, --bbq-sauce', 'Add bbq sauce')
+    .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble');
 
-program.prompt = require('prompt');
-program.prompt.message = '';
-program.prompt.delimeter = '';
-program.prompt.colors = false;
 
-var colors = require('colors');
-colors.mode = process.stdout.isTTY ? colors.mode : 'none';
-
-// Setup logging and messaging
-var logMessages = [];
-program.log = (function(debugMode) {
-    return function _log(logEntry, noPrint) {
-        logMessages.push(logEntry);
-        if (!noPrint && debugMode) {
-            console.log('--debug-- '.cyan + logEntry);
-        }
-    };
-})(process.argv.indexOf('--debug') >= 0);
-
-program.successMessage = function successMessage() {
-    var msg = util.format.apply(this, arguments);
-    program.log('Success: ' + msg, true);
-    console.log(msg.green);
-};
-
-program.errorMessage = function errorMessage() {
-    var msg = util.format.apply(this, arguments);
-    program.log('Error: ' + msg, true);
-    console.log(msg.red);
-};
-
-program.handleError = function handleError(err, exitCode) {
-    if (err) {
-        if (err.message) {
-            program.errorMessage(err.message);
-        } else {
-            program.errorMessage(err);
-        }
-    }
-
-    console.log('For more information see: ' + program.LOG_PATH);
-
-    fs.writeFileSync(program.LOG_PATH, logMessages.join('\n') + '\n');
-
-    process.exit(exitCode || 1);
-};
-
-// Create request wrapper
-program.request = function(opts, next) {
-    if (program.debug) {
-        program.log('REQUEST: '.bold + JSON.stringify(opts, null, 2));
-    } else {
-        program.log(opts.uri);
-    }
-    status.start();
-    return request(opts, function(err, res, body) {
-        status.stop();
-        if (err) {
-            if (program.debug) {
-                program.errorMessage(err.message);
-            }
-            return next(err, res, body);
-        } else {
-            if (program.debug) {
-                program.log('RESPONSE: '.bold + JSON.stringify(res.headers, null, 2));
-                program.log('BODY: '.bold + JSON.stringify(res.body, null, 2));
-            }
-            return next(err, res, body);
-        }
+program
+    .command('init')
+    .description('init a scaffold')
+    .action(function(){
+        console.log('initialize a folder structure');
     });
-};
+
+program
+    .command('build [env]')
+    .description('build static resources')
+    .action(function(env){
+        env = env || 'dev';
+        console.log('building %s env with mode', env);
+    });
+
+program
+    .command('upload [env]')
+    .description('upload static resources')
+    .action(function(env){
+        env = env || 'dev';
+        console.log('upload resource on environment', env);
+    });
+
+program
+    .command('*')
+    .action(function(){
+        console.log('oops, check your command, seems like no-match');
+    });
 
 
-program.on('*', function() {
-    console.log('Unknown Command: ' + program.args.join(' '));
-    program.help();
-});
+if (program.peppers) {
+    console.log('  - peppers');
+}
+if (program.pineapple) {
+    console.log('  - pineapple');
+}
+if (program.bbqSauce) {
+    console.log('  - bbq');
+}
+if (program.cheese) {
+    console.log('cheese');
+}
 
-// Process Commands
+
 program.parse(process.argv);

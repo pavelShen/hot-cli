@@ -4,7 +4,7 @@
   "description": "hot command line for generate a scaffold",
   "main": "index.js",
   "bin": {
-    "hot1": "./bin/hotcli"
+    "hot": "./bin/hotcli"
   },
   "scripts": {
     "test": "mocha"
