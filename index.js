@@ -1,27 +1,71 @@
 'use strict';
 
-var program = require('commander');
-var packageJson = require('./package.json');
+const program = require('commander');
+const Table = require('cli-table');
+const Git = require('nodegit');
+const spawn = require('child_process').spawn;
+
+let packageJson = require('./package.json');
 
 program
-    .version(packageJson.version)
-    .option('-p, --peppers', 'Add peppers')
-    .option('-P, --pineapple', 'Add pineapple')
-    .option('-b, --bbq-sauce', 'Add bbq sauce')
-    .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble');
+    .version(packageJson.version);
+
+
+program
+    .option('-p, --pepper', 'Add peppers');
+
+program.parse(process.argv);
+
+if (program.pepper) {
+    console.log('add a option here');
+}
 
 
 program
     .command('init')
     .description('init a scaffold')
-    .action(function(){
-        console.log('initialize a folder structure');
+    .action(() => {
+
+
+        Git.Clone('https://github.com/Roeis/HotFe.git', 'demo', {
+                fetchOpts : {
+                    callbacks: {
+                        certificateCheck: function(){ return 1;}
+                    }
+                }
+            })
+            .then(repo => {
+                console.log(repo)
+            })
+            .catch(err => {
+                console.log('error:', err);
+            });
+        console.log('initialize a folder structure', this);
     });
+
+program
+    .command('exec')
+    .description('exec a command line')
+    .action(() => {
+        let ls = spawn('ls', ['-lh', '/Users/roei/D/github/hot-cli']);
+
+        ls.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+
+        ls.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+        });
+
+        ls.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+        });
+    })
 
 program
     .command('build [env]')
     .description('build static resources')
-    .action(function(env){
+    .action(function(env) {
         env = env || 'dev';
         console.log('building %s env with mode', env);
     });
@@ -29,30 +73,21 @@ program
 program
     .command('upload [env]')
     .description('upload static resources')
-    .action(function(env){
+    .action(function(env) {
         env = env || 'dev';
         console.log('upload resource on environment', env);
     });
 
+// program
+//     .command('*')
+//     .action(function(){
+//         console.log('oops, check your command, seems like no-match');
+//     });
+
 program
-    .command('*')
-    .action(function(){
-        console.log('oops, check your command, seems like no-match');
+    .command('status')
+    .action(options => {
+        console.log('do the status job', options);
     });
-
-
-if (program.peppers) {
-    console.log('  - peppers');
-}
-if (program.pineapple) {
-    console.log('  - pineapple');
-}
-if (program.bbqSauce) {
-    console.log('  - bbq');
-}
-if (program.cheese) {
-    console.log('cheese');
-}
-
 
 program.parse(process.argv);
