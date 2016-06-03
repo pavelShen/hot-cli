@@ -5,6 +5,8 @@ the command line tool for front-end developping.
 a koa start-up, a workflow for you to start a node app or single package
 you have a backend ability
 
+mostly for mac users.
+
 ## hot
 
     hot init

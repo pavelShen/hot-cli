@@ -3,64 +3,58 @@
 const program = require('commander');
 const Table = require('cli-table');
 const Git = require('nodegit');
-const spawn = require('child_process').spawn;
 
+let util = require('./util');
 let packageJson = require('./package.json');
 
 program
     .version(packageJson.version);
 
-
 program
     .option('-p, --pepper', 'Add peppers');
 
-program.parse(process.argv);
-
-if (program.pepper) {
-    console.log('add a option here');
-}
-
-
 program
     .command('init')
-    .description('init a scaffold')
+    .description('init a project, folder structure')
     .action(() => {
 
-
-        Git.Clone('https://github.com/Roeis/HotFe.git', 'demo', {
-                fetchOpts : {
+        let cloneUrl = 'https://github.com/Roeis/HotFe.git',
+            targetPath = __dirname,
+            opts = {
+                fetchOpts: {
+                    // offical bug-fix on mac. some authentication issue
                     callbacks: {
-                        certificateCheck: function(){ return 1;}
+                        certificateCheck: function() {
+                            return 1;
+                        }
                     }
                 }
-            })
-            .then(repo => {
-                console.log(repo)
-            })
+            };
+        console.log('initialize a folder structure', this);
+
+        Git.Clone(cloneUrl, targetPath, opts)
             .catch(err => {
                 console.log('error:', err);
             });
-        console.log('initialize a folder structure', this);
+
+    });
+
+program
+    .command('run [env]')
+    .description('start a local server for developping')
+    .action((env) => {
+        console.log(env);
+        util.spawn('npm', ['run', 'dev']);
     });
 
 program
     .command('exec')
     .description('exec a command line')
     .action(() => {
-        let ls = spawn('ls', ['-lh', '/Users/roei/D/github/hot-cli']);
 
-        ls.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-        });
+        util.spawn('ls', ['-l', '/Users/roei/D/github/demo']);
 
-        ls.stderr.on('data', (data) => {
-            console.log(`stderr: ${data}`);
-        });
-
-        ls.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-        });
-    })
+    });
 
 program
     .command('build [env]')
@@ -78,12 +72,6 @@ program
         console.log('upload resource on environment', env);
     });
 
-// program
-//     .command('*')
-//     .action(function(){
-//         console.log('oops, check your command, seems like no-match');
-//     });
-
 program
     .command('status')
     .action(options => {
@@ -91,3 +79,8 @@ program
     });
 
 program.parse(process.argv);
+
+
+if (program.pepper) {
+    console.log('add a option here');
+}
