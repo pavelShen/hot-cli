@@ -9,9 +9,6 @@ program
     .version(packageJson.version);
 
 program
-    .option('-p, --pepper', 'Add peppers');
-
-program
     .command('init [name]')
     .description('init a project, folder structure')
     .action((name) => {
@@ -37,15 +34,6 @@ program
     });
 
 program
-    .command('test [env]')
-    .description('exec a command line')
-    .action((env) => {
-        env = util.getEnv(env);
-        console.log(env);
-        util.spawn('ls', ['-l', '/Users/roei/D/github']);
-    });
-
-program
     .command('build [env]')
     .description('build static resources')
     .action(function(env) {
@@ -63,7 +51,7 @@ program
 program
     .command('upload [env]')
     .description('upload static resources')
-    .action(function(env) {
+    .action((env) => {
         env = util.getEnv(env);
 
         if (env === 'dev') {
@@ -76,13 +64,23 @@ program
     });
 
 program
+    .command('new [name]')
+    .description('new one front-end workdir')
+    .action((name) => {
+
+    });
+
+program
+    .command('dir [name]')
+    .description('check and change the compile target path')
+    .action((name) => {
+
+    });
+
+program
     .command('status')
     .action(() => {
         util.spawn('npm', ['run', 'status']);
     });
 
 program.parse(process.argv);
-
-if (program.pepper) {
-    console.log('add a option here');
-}

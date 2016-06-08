@@ -1,34 +1,72 @@
 # hot-cli
 
-the command line tool for front-end developping.
+A tool can generate a complete scaffold for Node.js full-stack developping
 
-a koa start-up, a workflow for you to start a node app or single package
-you have a backend ability
+includes
+
+- webpack
+- hot-reload
+- node
+- browser-side developping
+- server-side developping
+- browser-sync
 
 mostly for mac users.
 
-## hot
+### command line
 
-    hot init
+    hot init [name] *   // initialize a scaffold
 
-    hot build dev
+    hot build dev       // run webpack package
     hot build yz
     hot build online
 
-    hot upload dev
+    hot upload dev      // upload your static resouces, need config first
     hot upload yz
 
+    hot serve           // start a local server for local developping
+
+    hot status          // check current project info
+    hot new [name]
+    hot dir [name]
+
+
+
+### how to use
+
+start a new project
+
+    hot init demo
+    cd demo
+    npm install
     hot serve
 
-## workflow
+when finish developping, package your static resources and upload to ftp
 
-- init : generate a template structure for you
-- build [env] : build your front-end resource with webpack
-- upload [env] : upload your front-end resouces through ftp
-- serve: start a local server for local developing
+    hot build dev
+    hot upload dev
 
-## include
+### interaction
+
+    #
+               +-------------------+
+               |      browser      | ---> js, css, html
+               +-------+---^-------+
+                       |   |
+               +-------v---+-------+
+               |    renderServer   | ---> Node.js
+               +-------+---^-------+
+           ------------|---|------------
+               +-------v---+-------+
+               |        api        | ---> java, c#, etc
+               +-------+---^-------+
+                       |   |
+               +-------v---+-------+
+               |      database     |
+               +-------------------+
 
 
-## about
-@roeichow
+
+### about
+- author: roei
+- Copyright (c) 2016 All rights reserved.
