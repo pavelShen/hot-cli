@@ -1,0 +1,84 @@
+@charset 'utf-8';
+
+@import './common/base.scss';
+@import './common/layout.scss';
+@import './common/module.scss';
+
+body{
+    background-color: #f6f6f6;
+}
+a{
+    text-decoration: none;
+}
+
+header {
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    background: #11ba55;
+    color: #FFF;
+}
+
+.hot-banner{
+    font-size: 3rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+.userinfo{
+    text-align: center;
+    img{
+        display: inline-block;
+        height: 100px;
+    }
+}
+
+.head-banner{
+    height: 320px;
+    background-color: #2e8c4b;
+    img{
+        max-height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+footer{
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    background-color: #eee;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.side-fixed{
+    position: fixed;
+    left: 50%;
+    margin-left: 500px;
+    bottom: 50px;
+    ul{
+        li{
+            $w: 40px;
+            width: $w;
+            height: $w;
+            border: 1px solid #eee;
+            text-align: center;
+            line-height: $w - 2;
+        }
+    }
+}
+
+
+
+
+.example{
+  width: 196px;
+  height: 196px;
+  background: url(assets/logo.png) no-repeat;
+}
+
+.demo{
+    display: flex;
+    transform: rotate(45deg);
+}

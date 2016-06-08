@@ -1,0 +1,28 @@
+body {
+    padding: 50px 50px;
+    font: 14px "Helvetica Neue", Helvetica, sans-serif;
+}
+
+h1,
+h2 {
+    margin: 0;
+    padding: 10px 0;
+
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    color: #aaa;
+    font-weight: 100;
+}
+
+pre {
+    font-size: .8rem;
+    white-space: pre-line;
+    text-indent: 2rem;
+    margin-left: 2rem;
+}

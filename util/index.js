@@ -8,7 +8,7 @@ let core = {
         let sli = spawn(cli, para);
 
         sli.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
+            console.log(`${data}`);
         });
 
         sli.stderr.on('data', (data) => {
@@ -20,6 +20,10 @@ let core = {
         });
 
         // return sli;
+    },
+    getEnv: function(env){
+
+        return env === 'yz' ||  env === 'online' ? env : 'dev';
     }
 
 };

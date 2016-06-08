@@ -1,0 +1,66 @@
+{% extends 'common/layout.html' %}
+
+{% block title %}Hot fe Node{% endblock %}
+
+{% block head %}
+    {% if (!isDEV) %}
+        <link rel="stylesheet" href="{{css}}">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="wrapper">
+        <div class="layout">
+
+            <div class="l-row">
+
+                <div class="l-col-12">
+                    <div class="m-block">
+                        <div class="head-banner" style="background-image:url({{locals.banner.src}})"></div>
+                    </div>
+                </div>
+
+                <div class="l-col-12">
+                    <div class="m-block">
+                        <div class="hot-banner">
+                            Hot Front-end workflow
+                        </div>
+                    </div>
+                </div>
+
+                <div class="l-col-3">
+                    <div class="m-block">
+                        <div class="userinfo">
+                            <p>
+                                <img src="{{ user.avatar }}" alt="{{ user.name }}" />
+                                <span>{{ user.name }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="m-block-module">
+            <div class="side-fixed">
+                <ul>
+                    <li>H</li>
+                    <li>O</li>
+                    <li>T</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        this.CUR_DATA = {
+            user: {
+                id: {{ user.id }},
+                name: '{{ user.name }}'
+            }
+        }
+    </script>
+    <script src="http://res.hjfile.cn/js/lib/jq/1.8.3/jquery.min.js"></script>
+    <script src="{{js}}"></script>
+
+{% endblock %}

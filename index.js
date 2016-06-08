@@ -1,9 +1,7 @@
 'use strict';
 
 const program = require('commander');
-const Table = require('cli-table');
-const Git = require('nodegit');
-
+const fs = require('fs-extra');
 let util = require('./util');
 let packageJson = require('./package.json');
 
@@ -14,53 +12,51 @@ program
     .option('-p, --pepper', 'Add peppers');
 
 program
-    .command('init')
+    .command('init [name]')
     .description('init a project, folder structure')
-    .action(() => {
+    .action((name) => {
 
-        let cloneUrl = 'https://github.com/Roeis/HotFe.git',
-            targetPath = __dirname,
-            opts = {
-                fetchOpts: {
-                    // offical bug-fix on mac. some authentication issue
-                    callbacks: {
-                        certificateCheck: function() {
-                            return 1;
-                        }
-                    }
-                }
-            };
-        console.log('initialize a folder structure', this);
-
-        Git.Clone(cloneUrl, targetPath, opts)
-            .catch(err => {
-                console.log('error:', err);
-            });
-
+        if(!name) {
+            console.log('input a folder name');
+            return;
+        }
+        try {
+            fs.copySync(__dirname + '/template', name);
+            console.log('initialize a folder structure', name);
+            util.spawn('cd', [name]);
+        } catch (err) {
+            console.log('copy template error:', err);
+        }
     });
 
 program
-    .command('run [env]')
+    .command('serve')
     .description('start a local server for developping')
-    .action((env) => {
-        console.log(env);
+    .action(() => {
         util.spawn('npm', ['run', 'dev']);
     });
 
 program
-    .command('exec')
+    .command('test [env]')
     .description('exec a command line')
-    .action(() => {
-
-        util.spawn('ls', ['-l', '/Users/roei/D/github/demo']);
-
+    .action((env) => {
+        env = util.getEnv(env);
+        console.log(env);
+        util.spawn('ls', ['-l', '/Users/roei/D/github']);
     });
 
 program
     .command('build [env]')
     .description('build static resources')
     .action(function(env) {
-        env = env || 'dev';
+
+        env = util.getEnv(env);
+        if (env === 'dev') {
+            util.spawn('npm', ['run', 'fedev']);
+        } else {
+            util.spawn('npm', ['run', 'febuild']);
+        }
+
         console.log('building %s env with mode', env);
     });
 
@@ -68,18 +64,24 @@ program
     .command('upload [env]')
     .description('upload static resources')
     .action(function(env) {
-        env = env || 'dev';
+        env = util.getEnv(env);
+
+        if (env === 'dev') {
+            util.spawn('npm', ['run', 'ftpdev']);
+        } else {
+            util.spawn('npm', ['run', 'ftpbuild']);
+        }
+
         console.log('upload resource on environment', env);
     });
 
 program
     .command('status')
-    .action(options => {
-        console.log('do the status job', options);
+    .action(() => {
+        util.spawn('npm', ['run', 'status']);
     });
 
 program.parse(process.argv);
-
 
 if (program.pepper) {
     console.log('add a option here');
