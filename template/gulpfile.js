@@ -60,7 +60,7 @@ function startNodemon(env) {
         },
         ignore: [
             '.git',
-            'frontPack',
+            'front',
             'node_modules/**'
         ],
         tasks: []

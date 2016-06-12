@@ -56,7 +56,7 @@ if(util.isDEV){
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(serve(__dirname + '/public'));
-app.use(serve(__dirname + '/frontPack'));
+app.use(serve(__dirname + '/front'));
 app.use(views(__dirname + '/views', {
     map: { html: 'swig' }
 }));

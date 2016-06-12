@@ -11,13 +11,14 @@
         "ftpbuild": "gulp ftp:yz",
         "fedev": "NODE_ENV=qa gulp front",
         "febuild": "NODE_ENV=production gulp front",
-        "change": "node ./frontPack/change.js",
-        "new": "node ./frontPack/mkdir.js",
-        "status": "node ./frontPack/status.js"
+        "change": "node ./front/change.js",
+        "new": "node ./front/mkdir.js",
+        "status": "node ./front/status.js"
     },
     "author": "roei",
     "license": "ISC",
     "dependencies": {
+        "autoprefixer": "^6.3.6",
         "babel-core": "^6.7.6",
         "babel-loader": "^6.2.4",
         "babel-plugin-transform-runtime": "^6.7.5",

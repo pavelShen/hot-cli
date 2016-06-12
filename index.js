@@ -20,7 +20,6 @@ program
         try {
             fs.copySync(__dirname + '/template', name);
             console.log('initialize a folder structure', name);
-            util.spawn('cd', [name]);
         } catch (err) {
             console.log('copy template error:', err);
         }
@@ -34,7 +33,7 @@ program
     });
 
 program
-    .command('build [env]')
+    .command('pack [env]')
     .description('build static resources')
     .action(function(env) {
 
@@ -67,11 +66,17 @@ program
     .command('new [name]')
     .description('new one front-end workdir')
     .action((name) => {
-
+        try {
+            fs.copySync(__dirname + '/template_fe', name + '/front');
+            console.log('initialize a folder structure', name);
+            util.spawn('cd', [name]);
+        } catch (err) {
+            console.log('copy template error:', err);
+        }
     });
 
 program
-    .command('dir [name]')
+    .command('target [name]')
     .description('check and change the compile target path')
     .action((name) => {
 
