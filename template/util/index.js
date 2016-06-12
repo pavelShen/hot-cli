@@ -2,12 +2,13 @@
 
 let env = process.env.NODE_ENV;
 
-let config = require('../config/pack.json');
+let config = require('../config/ftp.js');
+
 let core = {
     env: env,
     isDEV : env === 'development',
     isQA : env === 'qa',
-    isPRE : env === 'yz',
+    isPRE : env === 'pre',
     isRelease : env === 'production',
     getPublicPath(target){
         let pathStr = this.isDEV ? `/${target}/`

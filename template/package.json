@@ -8,12 +8,10 @@
         "dev": "gulp dev",
         "qa": "pm2 start process.json",
         "ftpdev": "gulp ftp:dev",
-        "ftpbuild": "gulp ftp:yz",
+        "ftpbuild": "gulp ftp:pre",
         "fedev": "NODE_ENV=qa gulp front",
         "febuild": "NODE_ENV=production gulp front"
     },
-    "author": "",
-    "license": "MIT",
     "dependencies": {
         "autoprefixer": "^6.3.6",
         "babel-core": "^6.7.6",
@@ -76,5 +74,7 @@
     },
     "devDependencies": {
         "cookies-js": "^1.2.2"
-    }
+    },
+    "author": "",
+    "license": "MIT"
 }

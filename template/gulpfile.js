@@ -14,6 +14,7 @@ const ftp = require('vinyl-ftp');
 
 let util = require('./util');
 let config = require('./config/pack.json');
+let ftpAccount = require('./config/ftp.js');
 let dest = path.resolve(config.dest, config.target);
 
 gulp.task('clean', () => {
@@ -87,20 +88,6 @@ gulp.task('qa', ['front'], () => {
 // ftp 上传
 // ============================
 
-let ftpAccount = {
-    dev : {
-        host: '10.10.50.66',
-        user: 'hjdev_pt',
-        password: 'pX8YR4',
-    },
-    yz: {
-        host: '10.10.30.122',
-        user: 'hjdev_pt',
-        password: 'pX8YR4'
-    }
-};
-
-
 function upload(env){
 
     let server = ftp.create({
@@ -139,6 +126,6 @@ gulp.task('ftp:dev', () => {
     upload('dev');
 });
 
-gulp.task('ftp:yz', function(){
-    upload('yz');
+gulp.task('ftp:pre', function(){
+    upload('pre');
 });
