@@ -30,19 +30,15 @@ mostly for mac users.
 
     hot serve           // start a local server for local developping
 
-    hot status          // check current project info
     hot new [name]
-    hot dir [name]
-
-
+    hot on [name]
 
 ### how to use
 
 start a new project
 
     hot init [project name]
-    cd [project name]
-    npm install
+    cd [project name] && npm install
     hot serve
 
 when finish developping, package your static resources and upload to ftp
@@ -52,6 +48,9 @@ when finish developping, package your static resources and upload to ftp
     hot pack dev
     hot upload dev
 
+### attentions
+app restart when modify files those are server-side files
+files in 'front' won't cause restart, it will affect browser-side
 
 ### structure
 

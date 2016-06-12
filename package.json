@@ -4,7 +4,7 @@
   "description": "A tool can generate a complete scaffold for Node.js full-stack developping",
   "main": "index.js",
   "bin": {
-    "hot1": "./bin/hotcli"
+    "hot": "./bin/hotcli"
   },
   "scripts": {
     "test": "mocha"
