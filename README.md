@@ -22,16 +22,16 @@ mostly for mac users.
     hot init [name] *   // initialize a scaffold
 
     hot pack dev       // run webpack package
-    hot pack yz
+    hot pack pre
     hot pack online
 
     hot upload dev      // upload your static resouces
-    hot upload yz
+    hot upload pre
 
     hot serve           // start a local server for local developping
 
-    hot new [name]
-    hot on [name]
+    hot new [name]      // create a front-end workdir
+    hot on [name]       // check or change front compile path
 
 ### how to use
 

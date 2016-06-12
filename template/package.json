@@ -1,5 +1,5 @@
 {
-    "name": "hot app generator",
+    "name": "hot-generator",
     "version": "1.0.0",
     "description": "render for generate page that editor make",
     "main": "index.js",
@@ -12,8 +12,8 @@
         "fedev": "NODE_ENV=qa gulp front",
         "febuild": "NODE_ENV=production gulp front"
     },
-    "author": "roei",
-    "license": "ISC",
+    "author": "",
+    "license": "MIT",
     "dependencies": {
         "autoprefixer": "^6.3.6",
         "babel-core": "^6.7.6",

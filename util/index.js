@@ -23,7 +23,7 @@ let core = {
     },
     getEnv: function(env){
 
-        return env === 'yz' ||  env === 'online' ? env : 'dev';
+        return env === 'pre' ||  env === 'online' ? env : 'dev';
     }
 
 };
