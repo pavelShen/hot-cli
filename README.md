@@ -1,6 +1,6 @@
 # hot-cli
 
-**program still in beta~**
+**program in testing~**
 
 A tool can generate a complete scaffold for Node.js full-stack developping
 
@@ -56,7 +56,12 @@ it'll output like {ftpPath}/{uploadPath}/{your packed resources}
 
 ### attentions
 app restart when modify files those are server-side files
+
 files in 'front' won't cause restart, it will affect browser-side
+
+for windows users, you can change scripts in package.json
+
+especially change 'NODE_ENV=production ...' to 'set NODE_ENV= production && ...'
 
 ### structure
 
