@@ -5,21 +5,28 @@ const spawn = require('child_process').spawn;
 let core = {
     spawn: function(cli, para){
 
-        let sli = spawn(cli, para);
-
-        sli.stdout.on('data', (data) => {
-            console.log(`${data}`);
+        let cmd = spawn(cli, para, {
+            stdio: 'inherit'
         });
+        // console.log(cmd.stdout);
+        try{
+            cmd.stdout.on('data', (data) => {
+                console.log(`${data}`);
+            });
 
-        sli.stderr.on('data', (data) => {
-            console.log(`stderr: ${data}`);
-        });
+            cmd.stderr.on('data', (data) => {
+                console.log(`ERROR: stderr > ${data}`);
+            });
 
-        sli.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-        });
+            cmd.on('close', (code) => {
+                console.log(`INFO: exited with code ${code}`);
+            });
 
-        // return sli;
+        }catch(err){
+            // Attention:
+            // can't read property 'on' of cmd.stdout, cmd.stdout equal null
+            // some like the node process mechanism
+        }
     },
     getEnv: function(env){
 

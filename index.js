@@ -19,6 +19,14 @@ program
             return;
         }
         try {
+            let pwd = process.cwd();
+            let folders = fs.readdirSync(pwd);
+            for(let i = 0; i < folders.length; i++){
+                if(folders[i] === name){
+                    console.log('WARNING: folder has existed');
+                    return;
+                }
+            }
             fs.copySync(__dirname + '/template', name);
             console.log('SUCCESS: initialize a folder structure', name);
         } catch (err) {

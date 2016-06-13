@@ -48,6 +48,12 @@ when finish developping, package your static resources and upload to ftp
     hot pack dev
     hot upload dev
 
+**config your ftp account**
+
+in '/config/ftp.js', fill the uploadPath and ftp account
+
+it'll output like {ftpPath}/{uploadPath}/{your packed resources}
+
 ### attentions
 app restart when modify files those are server-side files
 files in 'front' won't cause restart, it will affect browser-side
