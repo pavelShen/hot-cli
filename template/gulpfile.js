@@ -104,7 +104,7 @@ function upload(env){
 
     let globs = [sourceDir + '/**'],
         files = fs.readdirSync(sourceDir),
-        uploadUrl = config.uploadPath,
+        uploadUrl = ftpAccount.uploadPath,
         target = config.target;
 
     let destDir = uploadUrl + '/' + target;
