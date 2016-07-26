@@ -20,9 +20,17 @@ let modules = {
             cacheDirectory: true
         }
     },
+    css:{
+        test: /\.css$/,
+        loader: util.isDEV ? 'style!css' : ExtractTextPlugin.extract('style-loader', 'css-loader')
+    },
     scss: {
         test: /\.scss$/,
         loader: util.isDEV ? 'style-loader!css-loader!postcss-loader!sass-loader' : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader')
+    },
+    vue: {
+        test: /\.vue$/,
+        loader: 'vue'
     },
     json: {
         test: /\.json$/,
@@ -60,14 +68,16 @@ let pack = {
     },
     module: {
         loaders: [
+            modules.css,
             modules.scss,
             modules.json,
+            modules.vue,
             modules.url
         ]
     },
     plugins: [],
     postcss: [autoprefixer({
-        browsers: ['last 2 versions']
+        browsers: ['> 5%']
     })],
     resolve: {
         extensions: ['', '.js', '.scss', '.vue'],
