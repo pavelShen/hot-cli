@@ -13,24 +13,30 @@ program
     .command('init [name]')
     .description('init a project, folder structure')
     .action((name) => {
+        let pwd = process.cwd();
 
         if(!name) {
-            console.log('WARNING:input a folder name');
-            return;
-        }
-        try {
-            let pwd = process.cwd();
-            let folders = fs.readdirSync(pwd);
-            for(let i = 0; i < folders.length; i++){
-                if(folders[i] === name){
-                    console.log('WARNING: folder has existed');
-                    return;
-                }
+            console.log('SUCCESS:initialize in current folder');
+            try{
+                fs.copySync(__dirname + '/template', pwd);
+            }catch(err){
+                console.log('ERROR: copy template error:', err);
             }
-            fs.copySync(__dirname + '/template', name);
-            console.log('SUCCESS: initialize a folder structure', name);
-        } catch (err) {
-            console.log('ERROR: copy template error:', err);
+
+        }else{
+            try {
+                let folders = fs.readdirSync(pwd);
+                for(let i = 0; i < folders.length; i++){
+                    if(folders[i] === name){
+                        console.log('WARNING: folder has existed');
+                        return;
+                    }
+                }
+                fs.copySync(__dirname + '/template', name);
+                console.log('SUCCESS: initialize a folder structure', name);
+            } catch (err) {
+                console.log('ERROR: copy template error:', err);
+            }
         }
     });
 
