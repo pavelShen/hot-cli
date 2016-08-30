@@ -1,12 +1,9 @@
 {
     "apps": [{
-            "name": "demoone",
+            "name": process.env.NAME,
             "script": "./bin/server.js",
             "watch": true,
-            "ignore_watch": ["node_modules", "coverage"],
-            "env": {
-                "NODE_ENV": "qa"
-            },
+            "ignore_watch": ["node_modules", "coverage", "log"],
             "max_memory_restart": "500M"
         }]
 }

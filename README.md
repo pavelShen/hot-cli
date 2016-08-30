@@ -1,7 +1,5 @@
 # hot-cli
 
-**program in testing~**
-
 A tool can generate a complete scaffold for Node.js full-stack developping
 
 friendly for newbies to get started
@@ -14,22 +12,21 @@ includes
 - browser-side developping
 - server-side developping
 - browser-sync
+- template nunjucks
 
 mostly for mac users.
+
+### install
+
+    npm i -g hot-cli
+
 
 ### command line
 
     hot init [name] *       // initialize a scaffold
-
-    hot pack dev            // run webpack package
-    hot pack pre
-    hot pack online
-
-    hot upload dev          // upload your static resouces
-    hot upload pre
-
+    hot pack [env]          // run webpack package
+    hot upload [env]        // upload your static resouces
     hot serve               // start a local server for local developping
-
     hot new [name]          // create a front-end workdir
     hot on [name]           // check or change front compile path
 
@@ -40,10 +37,11 @@ start a new project
     hot init [project name]
     cd [project name] && npm install
     hot serve
+    hot pack dev
 
 when finish developping, package your static resources and upload to ftp
 
-**upload need config first**
+**upload setting need be configed first**
 
     hot pack dev
     hot upload dev

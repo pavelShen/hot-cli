@@ -3,7 +3,7 @@
 let core = {
 
 
-    get: function() {
+    get() {
         return function *(next) {
             console.log('auth pass');
             yield *next;

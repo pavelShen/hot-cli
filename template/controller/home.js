@@ -4,11 +4,11 @@ let util = require('../util');
 
 let core = {
 
-    get: function*() {
+    * get() {
 
         // let user = this.session.user;
 
-        let target = 'mobile';
+        let target = 'home';
         let manifest = util.getManifest(target);
         let publicPath = util.getPublicPath(target);
 
