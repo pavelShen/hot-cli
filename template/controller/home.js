@@ -6,14 +6,12 @@ let core = {
 
     * get() {
 
-        // let user = this.session.user;
-
         let target = 'home';
         let manifest = util.getManifest(target);
         let publicPath = util.getPublicPath(target);
-
+        let isOnCompile = util.isOnCompile(target);
         let data = {
-            isDEV: util.isDEV,
+            isCompile: util.isDEV && isOnCompile,
             user: {
                 id: 122343,
                 name: 'Kuro',

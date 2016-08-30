@@ -3,6 +3,7 @@
 let env = process.env.NODE_ENV;
 
 let config = require('../config/ftp.js');
+let pack = require('../config/pack.json');
 
 let core = {
     env: env,
@@ -10,8 +11,12 @@ let core = {
     isQA : env === 'qa',
     isPRE : env === 'pre',
     isRelease : env === 'production',
+    isOnCompile(target){
+        return pack.target === target;
+    },
     getPublicPath(target){
-        let pathStr = this.isDEV ? `/${target}/`
+        let isOnCompile = this.isOnCompile(target);
+        let pathStr = this.isDEV && isOnCompile ? `/${target}/`
                     : this.isQA ? `http://devres.hjfile.cn/pt/${config.uploadPath}/${target}/dev/`
                     : this.isPRE ? `http://yzres.hjfile.cn/pt/${config.uploadPath}/${target}/build/`
                     : this.isRelease ?  `http://res.hjfile.cn/pt/${config.uploadPath}/${target}/build/`

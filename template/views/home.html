@@ -1,10 +1,9 @@
 {% extends 'common/layout.html' %}
 
-{% block title %}Hot Front-End{% endblock %}
-
 {% block head %}
-    {% if (!isDEV) %}
-        <link rel="stylesheet" href="{{css}}">
+    <title>Hot Front-End</title>
+    {% if not isCompile %}
+    <link rel="stylesheet" href="{{css}}">
     {% endif %}
 {% endblock %}
 
@@ -33,16 +32,14 @@
                             <pre>
     hot init [name] *   // initialize a scaffold
 
-    hot pack dev        // run webpack package
-    hot pack pre
-    hot pack online
+    hot pack [env]        // run webpack package
 
-    hot upload dev      // upload your static resouces
-    hot upload pre
+    hot upload [env]      // upload your static resouces
 
     hot serve           // start a local server for local developping
 
     hot new [name]
+
     hot on [name]
                             </pre>
                         </div>
