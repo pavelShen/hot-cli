@@ -2,64 +2,51 @@
 
 A tool can generate a complete scaffold for Node.js full-stack developping
 
-friendly for newbies to get started
+    #
+     __    __    ______   .___________.        ______  __       __
+    |  |  |  |  /  __  \  |           |       /      ||  |     |  |
+    |  |__|  | |  |  |  | `---|  |----`______|  ,----'|  |     |  |
+    |   __   | |  |  |  |     |  |    |______|  |     |  |     |  |
+    |  |  |  | |  `--'  |     |  |           |  `----.|  `----.|  |
+    |__|  |__|  \______/      |__|            \______||_______||__|
 
-includes
-
-- webpack
-- hot-reload
-- node
-- browser-side developping
-- server-side developping
-- browser-sync
-- template nunjucks
-
-mostly for mac users.
+friendly for newbies to get started, also you can use it as a front-end dev server.
 
 ### install
 
     npm i -g hot-cli
 
+### quick start
+
+    1.hot init [project name]
+    => initialize the basic structure
+
+    2.npm i
+    => install npm modules
+
+    3.hot serve
+    => start a local development server, and now is your time
+
+### includes
+
+    - webpack
+    - hot-reload
+    - node
+    - browser-side developping
+    - server-side developping
+    - browser-sync
+    - template nunjucks
+
+    mostly for mac users.
 
 ### command line
 
     hot init [name] *       // initialize a scaffold
+    hot serve               // start a local server for local developping
     hot pack [env]          // run webpack package
     hot upload [env]        // upload your static resouces
-    hot serve               // start a local server for local developping
     hot new [name]          // create a front-end workdir
     hot on [name]           // check or change front compile path
-
-### how to use
-
-start a new project
-
-    hot init [project name]
-    cd [project name] && npm install
-    hot serve
-    hot pack dev
-
-when finish developping, package your static resources and upload to ftp
-
-**upload setting need be configed first**
-
-    hot pack dev
-    hot upload dev
-
-**config your ftp account**
-
-in '/config/ftp.js', fill the uploadPath and ftp account
-
-it'll output like {ftpPath}/{uploadPath}/{your packed resources}
-
-### attentions
-app restart when modify files those are server-side files
-
-files in 'front' won't cause restart, it will affect browser-side
-
-for windows users, you can change scripts in package.json
-
-especially change 'NODE_ENV=production ...' to 'set NODE_ENV= production && ...'
 
 ### structure
 
@@ -75,6 +62,21 @@ especially change 'NODE_ENV=production ...' to 'set NODE_ENV= production && ...'
     |---  /views
     |---  app.js
     |---  router.js
+
+
+### After
+1. when finished browser-side developping or 'hot new some project'
+
+    hot pack dev
+
+2. after pack the resources
+
+    hot upload dev
+
+    PS: here you need modify some settings in config folder
+        config your ftp account, password, etc.
+        actually, you can just pass this step, make it your own way
+    PS2: the static resources path will look like {ftpPath}/{uploadPath}/{your packed resources}
 
 ### interaction
 

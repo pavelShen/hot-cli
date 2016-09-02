@@ -29,6 +29,7 @@ const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 //
 
 let util = require('./util');
+let error = require('./middleware/error');
 let router = require('./router');
 
 let app = koa();
@@ -78,19 +79,16 @@ let middlewares = compose([
 
 app.use(middlewares);
 
-app.use(error({
-    template: path.resolve(__dirname, 'views/error.html')
-}));
+app.use(error());
 
 router(app);
 
 app.use(function*() {
-    this.status = 404;
     yield this.render('404');
 });
 
-app.on('error', function(err) {
-    console.error('server error', err);
+app.on('error', function(err, ctx) {
+    console.error('server error', err, ctx);
 });
 
 module.exports = app;
