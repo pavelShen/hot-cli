@@ -10,7 +10,6 @@ const helmet = require('koa-helmet');
 const etag = require('koa-etag');
 const compress = require('koa-compress');
 const compose = require('koa-compose');
-const error = require('koa-error');
 const conditional = require('koa-conditional-get');
 const koaNunjucks = require('koa-nunjucks-2');
 
