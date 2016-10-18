@@ -52,11 +52,22 @@ program
     .description('build static resources')
     .action(function(env) {
 
-        env = util.getEnv(env);
-        if (env === 'dev') {
-            util.spawn('npm', ['run', 'fedev']);
-        } else {
-            util.spawn('npm', ['run', 'febuild']);
+        // env = util.getEnv(env);
+
+        switch (env) {
+            case 'qa':
+                util.spawn('npm', ['run', 'feqa']);
+                break;
+            case 'yz':
+                util.spawn('npm', ['run', 'feyz']);
+                break;
+            case 'release':
+                util.spawn('npm', ['run', 'febuild']);
+                break;
+            case 'dev':
+            default:
+                util.spawn('npm', ['run', 'fedev']);
+                break;
         }
 
         console.log('INFO: building %s env with mode', env);
@@ -66,13 +77,10 @@ program
     .command('upload [env]')
     .description('upload static resources')
     .action((env) => {
-        env = util.getEnv(env);
+        // env = util.getEnv(env);
 
-        if (env === 'dev') {
-            util.spawn('npm', ['run', 'ftpdev']);
-        } else {
-            util.spawn('npm', ['run', 'ftpbuild']);
-        }
+        let command = env === 'yz' ? 'ftpyz' : env === 'qa' ? 'ftpqa' : 'ftpdev';
+        util.spawn('npm', ['run', command]);
 
         console.log('INFO: upload resource on environment', env);
     });
@@ -101,9 +109,9 @@ program
                 fs.copySync(clone, target);
 
                 let packJson = require(pwd + '/config/pack.json');
-                let packJsonPath = path.resolve(pwd + '/config/pack.json');
+                let packJSONPath = path.resolve(pwd + '/config/pack.json');
                 packJson.target = name;
-                fs.writeJSONSync(packJsonPath, packJson);
+                fs.writeJSONSync(packJSONPath, packJson);
                 console.log('SUCCESS: initialize one front-end folder - ', name);
             } catch (err) {
                 console.log('ERROR: copy template error - ', err);
@@ -117,10 +125,10 @@ program
     .action((name) => {
         let pwd = process.cwd();
         let packJson = require(pwd + '/config/pack.json');
-        let packJsonPath = path.resolve(pwd + '/config/pack.json');
+        let packJSONPath = path.resolve(pwd + '/config/pack.json');
         if(name){
             packJson.target = name;
-            fs.writeJSONSync(packJsonPath, packJson);
+            fs.writeJSONSync(packJSONPath, packJson);
 
         }else{
             console.log('INFO: current front compile at ', packJson.target);

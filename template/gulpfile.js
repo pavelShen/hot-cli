@@ -19,7 +19,7 @@ let dest = path.resolve(config.dest, config.target);
 
 gulp.task('clean', () => {
 
-    dest += util.isRelease ? '/build' : '/dev';
+    dest += util.isRelease || util.isPre ? '/build' : util.isQA ? '/qa' : '/dev';
 
     let dir = path.resolve(dest);
 
@@ -30,7 +30,7 @@ gulp.task('clean', () => {
     });
 });
 
-let dependTask = util.isRelease ? ['clean'] : [];
+let dependTask = util.isLocal ? [] : ['clean'];
 
 gulp.task('webpack', dependTask, () => {
 
@@ -57,50 +57,51 @@ function startNodemon(env) {
         ext: 'js html',
         env: {
             NODE_ENV: env,
-            DEBUG: 'lm'
+            DEBUG: 'portal'
+        },
+        execMap: {
+            js: 'node'
         },
         ignore: [
             '.git',
             'front',
+            'views',
             'node_modules/**'
         ],
         tasks: []
     };
-    if (env === 'development') {
-        config.ignore.push('views');
-    }
+
     nodemon(config).on('restart', () => {
         console.log('node app restarted!');
     });
 }
 
 gulp.task('dev', () => {
-    startNodemon('development');
+    startNodemon('local');
 });
-
-// DEPRECATED
-gulp.task('qa', ['front'], () => {
-    startNodemon('qa');
-});
-
 
 // ============================
 // ftp 上传
 // ============================
 
+// devres, yzres
+
+
 function upload(env){
 
+    let localEnv = env === 'qa' ? 'dev' : env;
+
     let server = ftp.create({
-        host: ftpAccount[env].host,
-        user: ftpAccount[env].user,
-        password: ftpAccount[env].password,
+        host: ftpAccount[localEnv].host,
+        user: ftpAccount[localEnv].user,
+        password: ftpAccount[localEnv].password,
         parallel: 10,
         log: gutil.log
     });
 
     let sourceDir = dest;
 
-    sourceDir += env === 'dev' ? '/dev' : '/build';
+    sourceDir += env === 'dev' ? '/dev' : env === 'qa' ? '/qa' : '/build';
 
     let globs = [sourceDir + '/**'],
         files = fs.readdirSync(sourceDir),
@@ -110,7 +111,7 @@ function upload(env){
     let destDir = uploadUrl + '/' + target;
     let publicPath = util.getPublicPath(target);
 
-    destDir += env === 'dev' ? '/dev' : '/build';
+    destDir += env === 'dev' ? '/dev' : env === 'qa' ? '/qa' : '/build';
 
     console.log('upload resource:');
     for (let i = 0; i < files.length; i++) {
@@ -126,6 +127,10 @@ gulp.task('ftp:dev', () => {
     upload('dev');
 });
 
-gulp.task('ftp:pre', function(){
-    upload('pre');
+gulp.task('ftp:qa', () => {
+    upload('qa');
+});
+
+gulp.task('ftp:yz', function(){
+    upload('yz');
 });

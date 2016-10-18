@@ -7,26 +7,28 @@ let pack = require('../config/pack.json');
 
 let core = {
     env: env,
+    isLocal: env === 'local',
     isDEV : env === 'development',
     isQA : env === 'qa',
-    isPRE : env === 'pre',
+    isPRE : env === 'yz',
     isRelease : env === 'production',
-    isOnCompile(target){
-        return pack.target === target;
-    },
     getPublicPath(target){
-        let isOnCompile = this.isOnCompile(target);
-        let pathStr = this.isDEV && isOnCompile ? `/${target}/`
-                    : this.isQA ? `http://devres.hjfile.cn/pt/${config.uploadPath}/${target}/dev/`
+        let isCurrent = pack.target === target;
+        let pathStr = isCurrent && this.isLocal ? `/${target}/`
+                    : this.isDEV ? `http://devres.hjfile.cn/pt/${config.uploadPath}/${target}/dev/`
+                    : this.isQA ? `http://qares.hjfile.cn/pt/${config.uploadPath}/${target}/qa/`
                     : this.isPRE ? `http://yzres.hjfile.cn/pt/${config.uploadPath}/${target}/build/`
                     : this.isRelease ?  `http://res.hjfile.cn/pt/${config.uploadPath}/${target}/build/`
-                    : `/page/${target}/`;
+                    : `/page/${target}/dev/`;
         return pathStr;
     },
     getManifest(target){
-        let dir = this.isRelease ? '/build' : '/dev',
+        let dir = this.isRelease || this.isPRE ? '/build' : this.isQA ? '/qa' : '/dev',
             manifest = require(`../public/page/${target}/${dir}/manifest.json`);
         return manifest;
+    },
+    isOnCompile(target){
+        return pack.target === target;
     }
 };
 

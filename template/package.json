@@ -8,8 +8,11 @@
         "dev": "gulp dev",
         "qa": "pm2 start process.json",
         "ftpdev": "gulp ftp:dev",
-        "ftpbuild": "gulp ftp:pre",
-        "fedev": "NODE_ENV=qa gulp front",
+        "ftpqa": "gulp ftp:qa",
+        "ftpyz": "gulp ftp:yz",
+        "fedev": "NODE_ENV=development gulp front",
+        "feqa": "NODE_ENV=qa gulp front",
+        "feyz": "NODE_ENV=yz gulp front",
         "febuild": "NODE_ENV=production gulp front"
     },
     "dependencies": {

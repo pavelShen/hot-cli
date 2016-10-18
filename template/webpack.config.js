@@ -20,13 +20,13 @@ let modules = {
             cacheDirectory: true
         }
     },
-    css:{
-        test: /\.css$/,
-        loader: util.isDEV ? 'style!css' : ExtractTextPlugin.extract('style-loader', 'css-loader')
-    },
     scss: {
         test: /\.scss$/,
-        loader: util.isDEV ? 'style-loader!css-loader!postcss-loader!sass-loader' : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader')
+        loader: util.isLocal ? 'style-loader!css-loader!postcss-loader!sass-loader' : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader')
+    },
+    css:{
+        test: /\.css$/,
+        loader: util.isLocal ? 'style!css' : ExtractTextPlugin.extract('style-loader', 'css-loader')
     },
     vue: {
         test: /\.vue$/,
@@ -37,18 +37,30 @@ let modules = {
         loader: 'json'
     },
     url: {
-        test: /\.(png|jpg|gif|ico|otf|eot|svg|ttf|woff)$/, // edit this for additional asset file types
+        test: /\.(png|jpg|gif|ico)$/, // edit this for additional asset file types
         loader: 'url',
         query: {
             limit: 4096, // inline files smaller then 10kb as base64 dataURL
             name: '[name].[ext]?[hash]' // fallback to file-loader with this naming scheme
         }
+    },
+    font: {
+         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+         loader: 'url',
+         query: {
+             limit: 10000,
+             mimetype: 'application/font-woff'
+         }
+    },
+    font2: {
+        test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
     }
 };
 
 let defaultEntry = path.resolve(base, 'main.js');
 
-dest += util.isRelease ? '/build' : '/dev';
+dest += util.isRelease || util.isPRE ? '/build' : util.isQA ? `/qa` : '/dev';
 
 let output = {
     path: path.resolve(dest),
@@ -64,14 +76,16 @@ let pack = {
     output: {
         path: output.path,
         publicPath: output.publicPath,
-        filename: util.isRelease ? '[name].[hash:8].js' : '[name].js'
+        filename: util.isDEV || util.isLocal ? '[name].js' : '[name].[hash:8].js'
     },
     module: {
         loaders: [
-            modules.css,
             modules.scss,
+            modules.css,
             modules.json,
             modules.vue,
+            modules.font,
+            modules.font2,
             modules.url
         ]
     },
@@ -83,11 +97,11 @@ let pack = {
         extensions: ['', '.js', '.scss', '.vue'],
         modulesDirectories: ['node_modules']
     },
-    watch: util.isDEV,
-    debug: util.isDEV || util.isQA,
-    devtool: util.isDEV || util.isQA ? 'eval' : null
+    watch: util.isLocal,
+    debug: util.isLocal || util.isDEV || util.isQA,
+    devtool: util.isLocal || util.isDEV || util.isQA ? 'source-map' : null
 };
-if(util.isDEV){
+if(util.isLocal){
     let hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
     pack.entry.main.push(hotMiddlewareScript);
 }
@@ -97,6 +111,7 @@ let plugins = {
     define: new webpack.DefinePlugin({
         __DEV__: JSON.stringify(util.isDEV),
         __QA__: JSON.stringify(util.isQA),
+        __LOCAL__: JSON.stringify(util.isLocal),
         __PRE__: JSON.stringify(util.isPRE),
         __RELEASE__: JSON.stringify(util.isRelease)
     }),
@@ -112,7 +127,7 @@ let plugins = {
     noerror: new webpack.NoErrorsPlugin()
 };
 
-if(util.isDEV){
+if(util.isLocal){
     pack.plugins.push(plugins.order);
     pack.plugins.push(plugins.hot);
     pack.plugins.push(plugins.noerror);

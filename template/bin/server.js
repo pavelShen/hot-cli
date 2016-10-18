@@ -11,7 +11,7 @@ let port = process.env.PORT || 3287;
 let server = http.createServer(app.callback());
 
 server.listen(port, function(){
-    if(util.isDEV){
+    if(util.isLocal){
         bs.init({
             open: false,
             notify: false,
