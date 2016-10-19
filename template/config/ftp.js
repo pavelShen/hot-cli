@@ -7,7 +7,7 @@ let config = {
         user: '',
         password: ''
     },
-    pre: {
+    yz: {
         host: '',
         user: '',
         password: ''

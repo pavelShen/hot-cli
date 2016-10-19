@@ -19,7 +19,7 @@ let dest = path.resolve(config.dest, config.target);
 
 gulp.task('clean', () => {
 
-    dest += util.isRelease || util.isPre ? '/build' : util.isQA ? '/qa' : '/dev';
+    dest += util.isRelease || util.isPRE ? '/build' : util.isQA ? '/qa' : '/dev';
 
     let dir = path.resolve(dest);
 
@@ -60,7 +60,7 @@ function startNodemon(env) {
             DEBUG: 'portal'
         },
         execMap: {
-            js: 'node'
+            js: 'node --debug'
         },
         ignore: [
             '.git',

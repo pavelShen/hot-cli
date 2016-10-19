@@ -38,7 +38,7 @@ app.name = 'hot application';
 app.keys = ['black code'];
 
 // local development environment using hot-reload, Very HOT!
-if(util.isDEV){
+if(util.isLocal){
     let pack = require('./config/pack.json');
     let configPath = `./${pack.base}/${pack.target}/config.js`;
     let packfig = require(configPath);

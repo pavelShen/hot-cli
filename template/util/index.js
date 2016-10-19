@@ -23,7 +23,7 @@ let core = {
         return pathStr;
     },
     getManifest(target){
-        let dir = this.isRelease || this.isPRE ? '/build' : this.isQA ? '/qa' : '/dev',
+        let dir = this.isRelease || this.isPRE ? 'build' : this.isQA ? 'qa' : 'dev',
             manifest = require(`../public/page/${target}/${dir}/manifest.json`);
         return manifest;
     },
