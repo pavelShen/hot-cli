@@ -106,7 +106,7 @@ if(util.isLocal){
     pack.entry.main.push(hotMiddlewareScript);
 }
 
-let extractCss = util.isRelease ? '[name].[hash:8].css' : '[name].css';
+let extractCss = util.isRelease || util.isPRE? '[name].[hash:8].css' : '[name].css';
 let plugins = {
     define: new webpack.DefinePlugin({
         __DEV__: JSON.stringify(util.isDEV),
@@ -138,7 +138,7 @@ if(util.isLocal){
 pack.plugins.push(plugins.define);
 pack.plugins.push(plugins.css);
 
-if (util.isRelease) {
+if (util.isRelease || util.isPRE) {
     pack.plugins.push(plugins.uglify);
 }
 
