@@ -60,7 +60,7 @@ function startNodemon(env) {
             DEBUG: 'portal'
         },
         execMap: {
-            js: 'node --debug'
+            js: 'node --debug=5920'
         },
         ignore: [
             '.git',

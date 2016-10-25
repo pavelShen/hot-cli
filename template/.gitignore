@@ -1,6 +1,5 @@
-**/node_modules/
-**/.sass-cache/
+/node_modules/**
+/coverage/**
+/log/**
+.idea
 **/.DS_Store
-**/.idea
-**/coverage
-**/public
