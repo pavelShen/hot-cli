@@ -124,7 +124,8 @@ let plugins = {
     manifest: new ManifestPlugin(),
     order: new webpack.optimize.OccurenceOrderPlugin(),
     hot: new webpack.HotModuleReplacementPlugin(),
-    noerror: new webpack.NoErrorsPlugin()
+    noerror: new webpack.NoErrorsPlugin(),
+    vendor: new webpack.optimize.CommonsChunkPlugin('vendor', util.isRelease || util.isPRE ? 'vendor.bundle.[hash:8].js' : 'vendor.bundle.js')
 };
 
 if(util.isLocal){
@@ -144,5 +145,8 @@ if (util.isRelease || util.isPRE) {
 
 module.exports = {
     config: pack,
-    modules: modules
+    modules,
+    plugins,
+    base,
+    dest
 };

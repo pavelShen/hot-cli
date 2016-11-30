@@ -69,6 +69,10 @@ friendly for newbies to get started, also you can use it as a front-end dev serv
 
     hot pack dev
 
+    PS: when hot new 'some project', it won't generate a manifest that for mapping.
+
+REMEMBER: ** hot pack after hot new ** , or u will got a 'manifest not found' error
+
 2. after pack the resources
 
     hot upload dev
@@ -97,6 +101,9 @@ friendly for newbies to get started, also you can use it as a front-end dev serv
                |      database     |
                +-------------------+
 
+### update
+
+    2016/11/30 add front template with 'code-split' setting.
 
 ### about
 - author: roei

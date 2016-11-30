@@ -15,7 +15,7 @@
     <div id="error">
         <h1>Error: {{status}}</h1>
         <p>Looks like something broke!</p>
-        {% if env == 'development' %}
+        {% if env == 'local' %}
             <h2>Message:</h2>
             <pre>
                 <code> {{error}} </code>

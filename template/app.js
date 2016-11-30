@@ -61,7 +61,7 @@ app.context.render = koaNunjucks({
     path: path.join(__dirname, 'views'),
     nunjucksConfig: {
         autoescape: true,
-        noCache: util.isDEV
+        noCache: util.isLocal
     }
 });
 

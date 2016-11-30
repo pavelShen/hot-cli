@@ -11,7 +11,7 @@
     |__|  |__|  \______/      |__|            \______||_______||__|
 
 
-开发体验友好，对前段伙伴友好
+开发体验友好，对前端伙伴友好
 
 对mac用户友好一点
 
@@ -70,18 +70,23 @@
 
     hot pack dev
 
+    PS: 当hot new 后，必执行下 hot pack, 将生成一个manifest文件用作mapping。碰到‘manifest.json not found’问题，执行下hot pack
+
+
+
 2. 打包完，上传静态资源服务器
 
     hot upload dev
 
     注： 这里需要先配置ftp的账号，密码等，在config文件中
-        这里没有必要性，可自行解决
+        这里的上传流程没有必要性，可自行解决
 
 3.注意
     windows伙伴需要改一些设置
     初始化完可以在package.json 修改一些参数
     比如 NODE_ENV=qa ... 改成 set NODE_ENV=qa && ...
     （不保证正常运行）
+
 ### 交互模式
 
     #
@@ -101,6 +106,9 @@
                |      database     |
                +-------------------+
 
+### 更新
+
+   2016/11/30 新增“code-split”多入口前端模板demo。具体看生成的前端项目文件夹中的config.js
 
 ### 关于
 - author: roei
