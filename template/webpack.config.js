@@ -58,7 +58,7 @@ let modules = {
     }
 };
 
-let defaultEntry = path.resolve(base, 'main.js');
+// let defaultEntry = path.resolve(base, 'main.js');
 
 dest += util.isRelease || util.isPRE ? '/build' : util.isQA ? `/qa` : '/dev';
 
@@ -71,7 +71,7 @@ let output = {
 
 let pack = {
     entry: {
-        main: [defaultEntry],
+        // main: [defaultEntry],
     },
     output: {
         path: output.path,
@@ -101,10 +101,6 @@ let pack = {
     debug: util.isLocal || util.isDEV || util.isQA,
     devtool: util.isLocal || util.isDEV || util.isQA ? 'source-map' : null
 };
-if(util.isLocal){
-    let hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
-    pack.entry.main.push(hotMiddlewareScript);
-}
 
 let extractCss = util.isRelease || util.isPRE? '[name].[hash:8].css' : '[name].css';
 let plugins = {
@@ -143,10 +139,18 @@ if (util.isRelease || util.isPRE) {
     pack.plugins.push(plugins.uglify);
 }
 
+let hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
+
+const addEntry = (name, filename) => {
+    pack.entry[name] = [path.resolve(base, filename)];
+    if(util.isLocal){
+        pack.entry[name].push(hotMiddlewareScript);
+    }
+}
+
 module.exports = {
     config: pack,
     modules,
     plugins,
-    base,
-    dest
+    addEntry
 };

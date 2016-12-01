@@ -104,6 +104,7 @@ REMEMBER: ** hot pack after hot new ** , or u will got a 'manifest not found' er
 ### update
 
     2016/11/30 add front template with 'code-split' setting.
+    2016/12/01 add hot replace in code-split.
 
 ### about
 - author: roei

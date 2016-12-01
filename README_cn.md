@@ -109,6 +109,7 @@
 ### 更新
 
    2016/11/30 新增“code-split”多入口前端模板demo。具体看生成的前端项目文件夹中的config.js
+   2016/12/01 新增多入口的热加载，addEntry(name, filename), 默认添加('main', 'main.js');
 
 ### 关于
 - author: roei
