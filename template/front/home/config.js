@@ -2,17 +2,29 @@
 
 let pack = require('../../webpack.config.js');
 
-// config.entry [object]
-// config.output [object]
-// config.module.loaders [array]
-// config.plugins [array]
-// config.watch
-// config.debug
-// config.devtool
+let config = pack.config;
 
-let config = pack.config,
-    modules = pack.modules;
+/**
+    ## U can use field below ##
+    config.entry [object]
+    config.output [object]
+    config.module.loaders [array]
+    config.plugins [array]
+    config.watch
+    config.debug
+    config.devtool
 
-config.module.loaders.push(modules.babel);
+    pack.addEntry('name', 'filename')
+    eg:
+        pack.addEntry('detail', 'detail.js');
+ */
+
+pack.addEntry('main', 'main.js');
+
+// config.entry.vendor = ['vue'];
+// config.plugins.push(pack.plugins.vendor);
+
+config.module.loaders.push(pack.modules.babel);
+
 
 module.exports = config;
