@@ -8,6 +8,7 @@ let home = require('./controller/home');
 
 
 router.get('/', auth(), home.get);
+router.get('/vue(/.+)?', vue.get);
 
 
 let route = function(app) {

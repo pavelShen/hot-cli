@@ -41,7 +41,7 @@ app.keys = ['black code'];
 if(util.isLocal){
     let pack = require('./config/pack.json');
     let configPath = `./${pack.base}/${pack.target}/config.js`;
-    let packfig = require(configPath);
+    let packfig = require(configPath).clientPack;
     let complier = webpack(packfig);
 
     app.use(webpackDevMiddleware(complier, {

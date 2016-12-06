@@ -110,7 +110,15 @@
 
    2016/11/30 新增“code-split”多入口前端模板demo。具体看生成的前端项目文件夹中的config.js
    2016/12/01 新增多入口的热加载，addEntry(name, filename), 默认添加('main', 'main.js');
+   2016/12/06 新增同构，vue server-side rendering, demo路径'/vue'
+
+### issue
+
+   用1.3及以前版本创建的项目迁移至1.4：
+
+   替换webpack.config.js, gulpfile.js, 修改在前端项目文件夹中的config.js，具体可以参考新例
 
 ### 关于
+
 - author: roei
 - Copyright (c) 2016 All rights reserved.

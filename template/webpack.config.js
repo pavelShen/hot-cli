@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let config = require('./config/pack.json');
 let util = require('./util');
+let packageJSON = require('./package.json');
 
 let base = path.resolve(config.base, config.target);
 let dest = path.resolve(config.dest, config.target);
@@ -60,22 +61,14 @@ let modules = {
 
 // let defaultEntry = path.resolve(base, 'main.js');
 
-dest += util.isRelease || util.isPRE ? '/build' : util.isQA ? `/qa` : '/dev';
+let clientOutputPath = util.isRelease || util.isPRE ? '/build' : util.isQA ? '/qa' : '/dev';
 
-let output = {
-    path: path.resolve(dest),
-    publicPath: util.getPublicPath(config.target)
-};
-
-
-
-let pack = {
+let clientPack = {
     entry: {
-        // main: [defaultEntry],
     },
     output: {
-        path: output.path,
-        publicPath: output.publicPath,
+        path: dest + clientOutputPath,
+        publicPath: util.getPublicPath(config.target),
         filename: util.isDEV || util.isLocal ? '[name].js' : '[name].[hash:8].js'
     },
     module: {
@@ -95,7 +88,10 @@ let pack = {
     })],
     resolve: {
         extensions: ['', '.js', '.scss', '.vue'],
-        modulesDirectories: ['node_modules']
+        modulesDirectories: ['node_modules'],
+        alias: {
+            'vue$': 'vue/dist/vue.js'
+        }
     },
     watch: util.isLocal,
     debug: util.isLocal || util.isDEV || util.isQA,
@@ -109,7 +105,8 @@ let plugins = {
         __QA__: JSON.stringify(util.isQA),
         __LOCAL__: JSON.stringify(util.isLocal),
         __PRE__: JSON.stringify(util.isPRE),
-        __RELEASE__: JSON.stringify(util.isRelease)
+        __RELEASE__: JSON.stringify(util.isRelease),
+        __NODE__: JSON.stringify(util.isNode)
     }),
     uglify: new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -125,32 +122,53 @@ let plugins = {
 };
 
 if(util.isLocal){
-    pack.plugins.push(plugins.order);
-    pack.plugins.push(plugins.hot);
-    pack.plugins.push(plugins.noerror);
+    clientPack.plugins.push(plugins.order);
+    clientPack.plugins.push(plugins.hot);
+    clientPack.plugins.push(plugins.noerror);
 }else{
-    pack.plugins.push(plugins.manifest);
+    clientPack.plugins.push(plugins.manifest);
 }
 
-pack.plugins.push(plugins.define);
-pack.plugins.push(plugins.css);
+clientPack.plugins.push(plugins.define);
+clientPack.plugins.push(plugins.css);
 
 if (util.isRelease || util.isPRE) {
-    pack.plugins.push(plugins.uglify);
+    clientPack.plugins.push(plugins.uglify);
 }
 
 let hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
 const addEntry = (name, filename) => {
-    pack.entry[name] = [path.resolve(base, filename)];
+    clientPack.entry[name] = [path.resolve(base, filename)];
     if(util.isLocal){
-        pack.entry[name].push(hotMiddlewareScript);
+        clientPack.entry[name].push(hotMiddlewareScript);
     }
 }
 
+
+let serverPack = {
+    target: 'node',
+    entry: {},
+    output: {
+        filename: 'bundle.js',
+        path: dest + '/server',
+        libraryTarget: 'commonjs2',
+    },
+    resolve: clientPack.resolve,
+    module: clientPack.module,
+    externals: Object.keys(packageJSON.devDependencies),
+    plugins: [plugins.define]
+};
+
+const addSSR = (name, filename) =>{
+    serverPack.entry[name] = [path.resolve(base, filename)];
+}
+
 module.exports = {
-    config: pack,
+    clientPack,
+    serverPack,
     modules,
     plugins,
-    addEntry
+    addEntry,
+    addSSR
 };

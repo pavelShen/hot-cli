@@ -64,6 +64,9 @@ program
             case 'release':
                 util.spawn('npm', ['run', 'febuild']);
                 break;
+            case 'ssr':
+                util.spawn('npm', ['run', 'ssr']);
+                break;
             case 'dev':
             default:
                 util.spawn('npm', ['run', 'fedev']);
@@ -112,7 +115,7 @@ program
                 let packJSONPath = path.resolve(pwd + '/config/pack.json');
                 packJson.target = name;
                 fs.writeJSONSync(packJSONPath, packJson);
-                console.log('SUCCESS: initialize one front-end folder - ', name);
+                console.log('SUCCESS: initialize one front-end folder - ', name, 'recommend code after hot pack dev');
             } catch (err) {
                 console.log('ERROR: copy template error - ', err);
             }

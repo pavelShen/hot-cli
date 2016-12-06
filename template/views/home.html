@@ -2,8 +2,8 @@
 
 {% block head %}
     <title>Hot Front-End</title>
-    {% if not isCompile %}
-    <link rel="stylesheet" href="{{css}}">
+    {% if not isOnCompile %}
+    <link rel="stylesheet" href="{{publicPath}}{{manifest['main.css']}}">
     {% endif %}
 {% endblock %}
 
@@ -70,6 +70,7 @@
             }
         }
     </script>
-    <script src="{{js}}"></script>
+    <script src="{{publicPath}}{{manifest['main.js']}}"></script>
+
 
 {% endblock %}

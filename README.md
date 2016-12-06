@@ -105,6 +105,13 @@ REMEMBER: ** hot pack after hot new ** , or u will got a 'manifest not found' er
 
     2016/11/30 add front template with 'code-split' setting.
     2016/12/01 add hot replace in code-split.
+    2016/12/06 add vue2 ssr, integrated with hot pack ssr
+
+### issue
+
+    created project with 1.3.* migration to 1.4:
+
+    replace webpack.config.js, gulpfile.js, modify config.js in front project folder.
 
 ### about
 - author: roei

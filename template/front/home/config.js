@@ -2,7 +2,8 @@
 
 let pack = require('../../webpack.config.js');
 
-let config = pack.config;
+let clientPack = pack.clientPack,
+    serverPack = pack.serverPack;
 
 /**
     ## U can use field below ##
@@ -19,7 +20,9 @@ let config = pack.config;
         pack.addEntry('detail', 'detail.js');
  */
 
-pack.addEntry('main', 'main.js');
+ pack.addEntry('client', 'client.js');
+
+ // pack.addSSR('server', 'server.js');
 
 // config.entry.vendor = ['vue'];
 // config.plugins.push(pack.plugins.vendor);
@@ -27,4 +30,7 @@ pack.addEntry('main', 'main.js');
 config.module.loaders.push(pack.modules.babel);
 
 
-module.exports = config;
+module.exports = {
+    clientPack,
+    serverPack
+};

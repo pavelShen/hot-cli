@@ -15,6 +15,7 @@ const ftp = require('vinyl-ftp');
 let util = require('./util');
 let config = require('./config/pack.json');
 let ftpAccount = require('./config/ftp.js');
+let base = path.resolve(config.base, config.target);
 let dest = path.resolve(config.dest, config.target);
 
 gulp.task('clean', () => {
@@ -32,12 +33,13 @@ gulp.task('clean', () => {
 
 let dependTask = util.isLocal ? [] : ['clean'];
 
-gulp.task('webpack', dependTask, () => {
-
+const bundle = type => {
     let configPath = './' + config.base + '/' + config.target + '/config.js';
-    let fig = require(configPath);
+    let pack = require(configPath);
 
-    webpack(fig, (err, stats) => {
+    let packConfig = type === 'node' ? pack.serverPack : pack.clientPack;
+
+    webpack(packConfig, (err, stats) => {
         if (err) {
             throw new gutil.PluginError('webpack', err);
         }
@@ -45,7 +47,14 @@ gulp.task('webpack', dependTask, () => {
             colors: true
         }));
     });
+}
+gulp.task('webpack', dependTask, () => {
+    bundle('client');
 });
+
+gulp.task('ssr', ()=>{
+    bundle('node');
+})
 
 gulp.task('front', ['webpack'], () => {
     console.log('frontend resource packaging...');
@@ -60,7 +69,7 @@ function startNodemon(env) {
             DEBUG: 'portal'
         },
         execMap: {
-            js: 'node --debug=5920'
+            js: 'node --debug=5921'
         },
         ignore: [
             '.git',
