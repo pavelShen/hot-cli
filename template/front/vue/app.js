@@ -13,6 +13,7 @@ if(!__NODE__){
 
 let app = new Vue({
     template: '<app></app>',
+    base: '/vue/',
     components: {
         App
     },

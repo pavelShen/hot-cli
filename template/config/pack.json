@@ -1,1 +1,5 @@
-{"base":"front","dest":"public/page","target":"home"}
+{
+  "base": "front",
+  "dest": "public/page",
+  "target": "vue"
+}

@@ -6,7 +6,7 @@ let util = require('../util');
 let bs = require('browser-sync').create();
 
 
-let port = process.env.PORT || 3287;
+let port = process.env.PORT || 3250;
 
 let server = http.createServer(app.callback());
 

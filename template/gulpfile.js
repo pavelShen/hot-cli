@@ -66,10 +66,10 @@ function startNodemon(env) {
         ext: 'js html',
         env: {
             NODE_ENV: env,
-            DEBUG: 'portal'
+            DEBUG: 'hot'
         },
         execMap: {
-            js: 'node --debug=5921'
+            js: 'node --debug=5801'
         },
         ignore: [
             '.git',

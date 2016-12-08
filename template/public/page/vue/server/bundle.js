@@ -107,6 +107,7 @@ module.exports =
 
 	var app = new _vue2.default({
 	    template: '<app></app>',
+	    base: '/vue/',
 	    components: {
 	        App: _app2.default
 	    },
@@ -199,7 +200,7 @@ module.exports =
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "/Users/roei/C/gitlab/portal/front/vue/components/foo.vue"
+	__vue_options__.__file = "/Users/roei/D/github/hot-cli/template/front/vue/components/foo.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	if (__vue_options__.functional) {console.error("[vue-loader] foo.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -272,7 +273,7 @@ module.exports =
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "/Users/roei/C/gitlab/portal/front/vue/components/bar.vue"
+	__vue_options__.__file = "/Users/roei/D/github/hot-cli/template/front/vue/components/bar.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	if (__vue_options__.functional) {console.error("[vue-loader] bar.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -372,7 +373,7 @@ module.exports =
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "/Users/roei/C/gitlab/portal/front/vue/components/app.vue"
+	__vue_options__.__file = "/Users/roei/D/github/hot-cli/template/front/vue/components/app.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	if (__vue_options__.functional) {console.error("[vue-loader] app.vue: functional components are not supported and should be defined in plain js files using render functions.")}

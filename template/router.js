@@ -5,6 +5,7 @@ const router = require('koa-router')();
 let auth = require('./middleware/auth');
 
 let home = require('./controller/home');
+let vue = require('./controller/vue');
 
 
 router.get('/', auth(), home.get);
