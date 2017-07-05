@@ -1,6 +1,6 @@
 {
   "name": "hot-cli",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A tool can generate a complete scaffold for Node.js full-stack developping",
   "main": "index.js",
   "bin": {
