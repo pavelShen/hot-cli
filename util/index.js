@@ -1,25 +1,28 @@
 'use strict';
 
-const spawn = require('child_process').spawn;
+// const spawn = require('child_process').spawn;
+const spawn = require('cross-spawn')
 
 let core = {
     spawn: function(cli, para){
 
         let cmd = spawn(cli, para, {
             stdio: 'inherit'
-        });
+        })
+        console.log('info: using cross-spawn')
         // console.log(cmd.stdout);
         try{
             cmd.stdout.on('data', (data) => {
-                console.log(`${data}`);
+
+                console.log(`${data}`)
             });
 
             cmd.stderr.on('data', (data) => {
-                console.log(`ERROR: stderr > ${data}`);
+                console.log(`ERROR: stderr > ${data}`)
             });
 
             cmd.on('close', (code) => {
-                console.log(`INFO: exited with code ${code}`);
+                console.log(`INFO: exited with code ${code}`)
             });
 
         }catch(err){
@@ -29,8 +32,7 @@ let core = {
         }
     },
     getEnv: function(env){
-
-        return env === 'pre' ||  env === 'online' ? env : 'dev';
+        return env === 'pre' ||  env === 'online' ? env : 'dev'
     }
 
 };

@@ -8,6 +8,7 @@ export default context => {
     router.push(context.url);
 
     const s = Date.now();
+
     // context.initialState = store.state;
 
     return app;

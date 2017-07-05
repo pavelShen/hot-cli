@@ -9,6 +9,11 @@
 <div class="col-12">
     <div class="m-block">
 
+        <template v-if="page">
+            <p>
+                this a p in a template tag
+            </p>
+        </template>
 
         <h3>Page Bar</h3>
         <p>
@@ -25,7 +30,8 @@
 export default {
     data(){
         return {
-            message: 'this is child page, bar'
+            message: 'this is child page, bar',
+            page: true
         }
     },
     mounted(){

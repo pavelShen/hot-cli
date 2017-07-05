@@ -25,8 +25,8 @@ let core = {
             })
         }
 
-        data.vueString = vueString ? vueString : '<div class="wrapper"></div>';
-        // data.vueString = '<div class="wrapper"></div>';
+        // data.vueString = vueString ? vueString : '<div class="wrapper"></div>';
+        data.vueString = '<div class="wrapper"></div>';
 
         yield this.render('vue', data);
     }

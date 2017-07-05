@@ -1,5 +1,5 @@
 {
   "base": "front",
   "dest": "public/page",
-  "target": "vue"
+  "target": "home"
 }
